@@ -1,12 +1,4 @@
 module.exports = class Romanizer {
-
-    constructor() {
-        this.remStr = null;
-    }
-
-    /**
-     * 変換マップ
-     */
     romanMap = {
         'あ' : 'a',
         'い' : 'i',
@@ -156,17 +148,6 @@ module.exports = class Romanizer {
         'りゅ' : 'ryu',
         'りぇ' : 'rye',
         'りょ' : 'ryo',
-        'ぁ' : 'xa',
-        'ぃ' : 'xi',
-        'ぅ' : 'xu',
-        'ぇ' : 'xe',
-        'ぉ' : 'xo',
-        'ゃ' : 'xya',
-        'ゅ' : 'xyu',
-        'ょ' : 'xyo',
-        'っ' : 'xtu',
-        'ヴ' : 'vu',
-        'ー' : '-',
         '、' : ', ',
         '，' : ', ',
         '。' : '.'
@@ -211,9 +192,17 @@ module.exports = class Romanizer {
             romanText += romanChar;
             i += char.length;
         }
-        return this.upper(this.convertChouin(romanText));
+        return this.convertNN(this.upper(this.convertChouin(romanText)));
     }
 
+    /**
+     * 日本語の文字を取得する
+     * 次の文字が捨て仮名の場合は捨て仮名も含めて取得される
+     *
+     * @param text
+     * @param i
+     * @returns {string|*}
+     */
     getChar(text, i) {
         if (this.isWithSutegana(text, i)) {
             return text.substr(i, 2);
@@ -222,6 +211,14 @@ module.exports = class Romanizer {
         }
     }
 
+    /**
+     * 日本語の文字に対応するローマ字を取得する
+     * @param text
+     * @param i
+     * @param char
+     * @param romanText
+     * @returns {*}
+     */
     getRomanChar(text, i, char, romanText) {
         let romanChar = char;
 
@@ -235,7 +232,7 @@ module.exports = class Romanizer {
             }
         }
 
-        // 1文字前が促音なら子音を繰り返す
+        // 1文字前が促音なら子音を２つにする
         if (text[i - 1] === this.sokuon) {
             romanChar = romanChar[0] + romanChar;
         }
@@ -281,5 +278,9 @@ module.exports = class Romanizer {
             }
         }
         return result;
+    }
+
+    convertNN(romanText) {
+        return romanText.replace(/nn/g, 'n');
     }
 }

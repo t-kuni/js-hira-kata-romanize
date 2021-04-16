@@ -65,4 +65,36 @@ describe('Romanizer', () => {
         const expect = 'Me'
         assert.equal(actual, expect);
     })
+
+    it('っつ・・・', async () => {
+        const s = new Service();
+
+        const actual = await s.romanize('っつ・・・');
+        const expect = 'Ttsu・・・'
+        assert.equal(actual, expect);
+    })
+
+    it('ばっっっっっかじゃないの！？', async () => {
+        const s = new Service();
+
+        const actual = await s.romanize('ばっっっっっかじゃないの！？');
+        const expect = 'Bakkajanaino！？'
+        assert.equal(actual, expect);
+    })
+
+    it('とうきょう', async () => {
+        const s = new Service();
+
+        const actual = await s.romanize('とうきょう');
+        const expect = 'Tōkyō'
+        assert.equal(actual, expect);
+    })
+
+    it('きょうすけ', async () => {
+        const s = new Service();
+
+        const actual = await s.romanize('きょうすけ');
+        const expect = 'Kyōsuke'
+        assert.equal(actual, expect);
+    })
 })
