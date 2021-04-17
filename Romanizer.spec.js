@@ -34,6 +34,14 @@ describe('Romanizer', () => {
         assert.equal(actual, expect);
     })
 
+    it('セーラームーン', async () => {
+        const s = new Service();
+
+        const actual = await s.romanize('セーラームーン');
+        const expect = 'Sērāmūn'
+        assert.equal(actual, expect);
+    })
+
     it('じゃっきーちぇん', async () => {
         const s = new Service();
 
@@ -135,6 +143,14 @@ describe('Romanizer', () => {
 
         const actual = await s.romanize('しんや');
         const expect = 'Shin\'ya'
+        assert.equal(actual, expect);
+    })
+
+    it('みかん ミカン みかん', async () => {
+        const s = new Service();
+
+        const actual = await s.romanize('みかん ミカン みかん');
+        const expect = 'Mikan Mikan Mikan'
         assert.equal(actual, expect);
     })
 })

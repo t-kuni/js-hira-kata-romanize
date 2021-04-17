@@ -181,7 +181,8 @@ module.exports = class Romanizer {
         },
     }
 
-    romanize(text) {
+    romanize(_text) {
+        const text = this.kanaToHira(_text);
         let romanText = '';
         for (let i = 0; i < text.length; ) {
             const char = this.getChar(text, i);
@@ -304,5 +305,12 @@ module.exports = class Romanizer {
         }
 
         return false;
+    }
+
+    kanaToHira(str) {
+        return str.replace(/[\u30a1-\u30f6]/g, function(match) {
+            const chr = match.charCodeAt(0) - 0x60;
+            return String.fromCharCode(chr);
+        });
     }
 }
