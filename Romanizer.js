@@ -148,12 +148,17 @@ module.exports = class Romanizer {
         'りゅ' : 'ryu',
         'りぇ' : 'rye',
         'りょ' : 'ryo',
+        'にゃ' : 'nya',
+        'にぃ' : 'nyi',
+        'にゅ' : 'nyu',
+        'にぇ' : 'nye',
+        'にょ' : 'nyo',
         '、' : ', ',
         '，' : ', ',
         '。' : '.'
     };
 
-    sutegana = ['ぁ', 'ぃ', 'ぅ', 'ぇ', 'ぉ', 'ゕ', 'ゖ', 'ゃ', 'ゅ', 'ょ', 'ゎ'];
+    sutegana = ['ぁ', 'ぃ', 'ぅ', 'ぇ', 'ぉ', 'ゃ', 'ゅ', 'ょ'];
 
     sokuon = 'っ';
 
@@ -180,16 +185,9 @@ module.exports = class Romanizer {
         let romanText = '';
         for (let i = 0; i < text.length; ) {
             const char = this.getChar(text, i);
-
-            // 促音そのものは処理しない
-            if (char === this.sokuon) {
-                i += char.length;
-                continue;
-            }
-
             const romanChar = this.getRomanChar(text, i, char, romanText);
 
-            romanText += romanChar;
+            romanText += romanChar + (this.isNeedApostrophe(text, i) ? '\'' : '');
             i += char.length;
         }
         return this.convertNN(this.upper(this.convertChouin(romanText)));
@@ -224,6 +222,8 @@ module.exports = class Romanizer {
 
         if (char === 'ー') {
             romanChar = romanText[romanText.length - 1];
+        } else if (char === 'っ') {
+            return '';
         } else if (char in this.romanMap) {
             if (typeof this.romanMap[char] === 'object') {
                 romanChar = this.romanMap[char].hepburn;
@@ -282,5 +282,27 @@ module.exports = class Romanizer {
 
     convertNN(romanText) {
         return romanText.replace(/nn/g, 'n');
+    }
+
+    /**
+     * 以下のいずれかに該当する場合は真を返す
+     *
+     * ・撥音「ん」の後に母音やヤ行音が来てナ行音と区別できない場合
+     * ・文の末尾に促音がある場合
+     *
+     * @param text
+     * @param i
+     * @returns {boolean}
+     */
+    isNeedApostrophe(text, i) {
+        if (text[i] === 'ん' && ['あ', 'い', 'う', 'え', 'お', 'や', 'ゆ', 'よ'].includes(text[i + 1])) {
+            return true;
+        }
+
+        if (text[i] === this.sokuon && i + 1 >= text.length) {
+            return true;
+        }
+
+        return false;
     }
 }

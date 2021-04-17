@@ -62,7 +62,7 @@ describe('Romanizer', () => {
         const s = new Service();
 
         const actual = await s.romanize('めっ');
-        const expect = 'Me'
+        const expect = 'Me\''
         assert.equal(actual, expect);
     })
 
@@ -95,6 +95,46 @@ describe('Romanizer', () => {
 
         const actual = await s.romanize('きょうすけ');
         const expect = 'Kyōsuke'
+        assert.equal(actual, expect);
+    })
+
+    it('しんあい', async () => {
+        const s = new Service();
+
+        const actual = await s.romanize('しんあい');
+        const expect = 'Shin\'ai'
+        assert.equal(actual, expect);
+    })
+
+    it('しない', async () => {
+        const s = new Service();
+
+        const actual = await s.romanize('しない');
+        const expect = 'Shinai'
+        assert.equal(actual, expect);
+    })
+
+    it('しんよう', async () => {
+        const s = new Service();
+
+        const actual = await s.romanize('しんよう');
+        const expect = 'Shin\'yō'
+        assert.equal(actual, expect);
+    })
+
+    it('しにょう', async () => {
+        const s = new Service();
+
+        const actual = await s.romanize('しにょう');
+        const expect = 'Shinyō'
+        assert.equal(actual, expect);
+    })
+
+    it('しんや', async () => {
+        const s = new Service();
+
+        const actual = await s.romanize('しんや');
+        const expect = 'Shin\'ya'
         assert.equal(actual, expect);
     })
 })
