@@ -1,12 +1,12 @@
 const Service = require('./Romanizer');
 const assert = require('chai').assert
 
-describe('Romanizer', () => {
+describe('Romanizer（オプション無し：ヘボン式）', () => {
     it('りゅうぞうじ じょうたろう', async () => {
         const s = new Service();
 
         const actual = await s.romanize('りゅうぞうじ じょうたろう');
-        const expect = 'Ryūzōji Jōtarō'
+        const expect = 'Ryūzōji Jōtarō'
         assert.equal(actual, expect);
     })
 
@@ -22,7 +22,7 @@ describe('Romanizer', () => {
         const s = new Service();
 
         const actual = await s.romanize('おおしろ');
-        const expect = 'Ōshiro'
+        const expect = 'Ōshiro'
         assert.equal(actual, expect);
     })
 
@@ -30,7 +30,7 @@ describe('Romanizer', () => {
         const s = new Service();
 
         const actual = await s.romanize('せーらーむーん');
-        const expect = 'Sērāmūn'
+        const expect = 'Sērāmūn'
         assert.equal(actual, expect);
     })
 
@@ -38,7 +38,7 @@ describe('Romanizer', () => {
         const s = new Service();
 
         const actual = await s.romanize('セーラームーン');
-        const expect = 'Sērāmūn'
+        const expect = 'Sērāmūn'
         assert.equal(actual, expect);
     })
 
@@ -46,7 +46,7 @@ describe('Romanizer', () => {
         const s = new Service();
 
         const actual = await s.romanize('じゃっきーちぇん');
-        const expect = 'Jakkīchen'
+        const expect = 'Jakkīchen'
         assert.equal(actual, expect);
     })
 
@@ -54,7 +54,7 @@ describe('Romanizer', () => {
         const s = new Service();
 
         const actual = await s.romanize('ぴょーっん');
-        const expect = 'Pyōn'
+        const expect = 'Pyōn'
         assert.equal(actual, expect);
     })
 
@@ -62,7 +62,7 @@ describe('Romanizer', () => {
         const s = new Service();
 
         const actual = await s.romanize('ぴょーん');
-        const expect = 'Pyōn'
+        const expect = 'Pyōn'
         assert.equal(actual, expect);
     })
 
@@ -94,7 +94,7 @@ describe('Romanizer', () => {
         const s = new Service();
 
         const actual = await s.romanize('とうきょう');
-        const expect = 'Tōkyō'
+        const expect = 'Tōkyō'
         assert.equal(actual, expect);
     })
 
@@ -102,7 +102,7 @@ describe('Romanizer', () => {
         const s = new Service();
 
         const actual = await s.romanize('きょうすけ');
-        const expect = 'Kyōsuke'
+        const expect = 'Kyōsuke'
         assert.equal(actual, expect);
     })
 
@@ -126,7 +126,7 @@ describe('Romanizer', () => {
         const s = new Service();
 
         const actual = await s.romanize('しんよう');
-        const expect = 'Shin\'yō'
+        const expect = 'Shin\'yō'
         assert.equal(actual, expect);
     })
 
@@ -134,7 +134,7 @@ describe('Romanizer', () => {
         const s = new Service();
 
         const actual = await s.romanize('しにょう');
-        const expect = 'Shinyō'
+        const expect = 'Shinyō'
         assert.equal(actual, expect);
     })
 
@@ -151,6 +151,228 @@ describe('Romanizer', () => {
 
         const actual = await s.romanize('みかん ミカン みかん');
         const expect = 'Mikan Mikan Mikan'
+        assert.equal(actual, expect);
+    })
+
+    it('ちょうおん', async () => {
+        const s = new Service();
+
+        const actual = await s.romanize('ちょうおん');
+        const expect = 'Chōon'
+        assert.equal(actual, expect);
+    })
+})
+
+describe('Romanizer（モード：ヘボン式）', () => {
+    it('りゅうぞうじ じょうたろう', async () => {
+        const s = new Service({
+            mode: 'hepburn'
+        });
+
+        const actual = await s.romanize('りゅうぞうじ じょうたろう');
+        const expect = 'Ryūzōji Jōtarō'
+        assert.equal(actual, expect);
+    })
+});
+
+describe('Romanizer（モード：訓令式）', () => {
+    it('りゅうぞうじ じょうたろう', async () => {
+        const s = new Service({
+            mode: 'kunrei'
+        });
+
+        const actual = await s.romanize('りゅうぞうじ じょうたろう');
+        const expect = 'Ryûzôzi Zyôtarô'
+        assert.equal(actual, expect);
+    })
+
+    it('じゃ', async () => {
+        const s = new Service({
+            mode: 'kunrei'
+        });
+
+        const actual = await s.romanize('じゃ');
+        const expect = 'Zya'
+        assert.equal(actual, expect);
+    })
+
+    it('おおしろ', async () => {
+        const s = new Service({
+            mode: 'kunrei'
+        });
+
+        const actual = await s.romanize('おおしろ');
+        const expect = 'Ôsiro'
+        assert.equal(actual, expect);
+    })
+
+    it('せーらーむーん', async () => {
+        const s = new Service({
+            mode: 'kunrei'
+        });
+
+        const actual = await s.romanize('せーらーむーん');
+        const expect = 'Sêrâmûn'
+        assert.equal(actual, expect);
+    })
+
+    it('セーラームーン', async () => {
+        const s = new Service({
+            mode: 'kunrei'
+        });
+
+        const actual = await s.romanize('セーラームーン');
+        const expect = 'Sêrâmûn'
+        assert.equal(actual, expect);
+    })
+
+    it('じゃっきーちぇん', async () => {
+        const s = new Service({
+            mode: 'kunrei'
+        });
+
+        const actual = await s.romanize('じゃっきーちぇん');
+        const expect = 'Zyakkîtyen'
+        assert.equal(actual, expect);
+    })
+
+    it('ぴょーっん', async () => {
+        const s = new Service({
+            mode: 'kunrei'
+        });
+
+        const actual = await s.romanize('ぴょーっん');
+        const expect = 'Pyôn'
+        assert.equal(actual, expect);
+    })
+
+    it('ぴょーん', async () => {
+        const s = new Service({
+            mode: 'kunrei'
+        });
+
+        const actual = await s.romanize('ぴょーん');
+        const expect = 'Pyôn'
+        assert.equal(actual, expect);
+    })
+
+    it('めっ', async () => {
+        const s = new Service({
+            mode: 'kunrei'
+        });
+
+        const actual = await s.romanize('めっ');
+        const expect = 'Me\''
+        assert.equal(actual, expect);
+    })
+
+    it('っつ・・・', async () => {
+        const s = new Service({
+            mode: 'kunrei'
+        });
+
+        const actual = await s.romanize('っつ・・・');
+        const expect = 'Ttu・・・'
+        assert.equal(actual, expect);
+    })
+
+    it('ばっっっっっかじゃないの！？', async () => {
+        const s = new Service({
+            mode: 'kunrei'
+        });
+
+        const actual = await s.romanize('ばっっっっっかじゃないの！？');
+        const expect = 'Bakkazyanaino！？'
+        assert.equal(actual, expect);
+    })
+
+    it('とうきょう', async () => {
+        const s = new Service({
+            mode: 'kunrei'
+        });
+
+        const actual = await s.romanize('とうきょう');
+        const expect = 'Tôkyô'
+        assert.equal(actual, expect);
+    })
+
+    it('きょうすけ', async () => {
+        const s = new Service({
+            mode: 'kunrei'
+        });
+
+        const actual = await s.romanize('きょうすけ');
+        const expect = 'Kyôsuke'
+        assert.equal(actual, expect);
+    })
+
+    it('しんあい', async () => {
+        const s = new Service({
+            mode: 'kunrei'
+        });
+
+        const actual = await s.romanize('しんあい');
+        const expect = 'Sin\'ai'
+        assert.equal(actual, expect);
+    })
+
+    it('しない', async () => {
+        const s = new Service({
+            mode: 'kunrei'
+        });
+
+        const actual = await s.romanize('しない');
+        const expect = 'Sinai'
+        assert.equal(actual, expect);
+    })
+
+    it('しんよう', async () => {
+        const s = new Service({
+            mode: 'kunrei'
+        });
+
+        const actual = await s.romanize('しんよう');
+        const expect = 'Sin\'yô'
+        assert.equal(actual, expect);
+    })
+
+    it('しにょう', async () => {
+        const s = new Service({
+            mode: 'kunrei'
+        });
+
+        const actual = await s.romanize('しにょう');
+        const expect = 'Sinyô'
+        assert.equal(actual, expect);
+    })
+
+    it('しんや', async () => {
+        const s = new Service({
+            mode: 'kunrei'
+        });
+
+        const actual = await s.romanize('しんや');
+        const expect = 'Sin\'ya'
+        assert.equal(actual, expect);
+    })
+
+    it('みかん ミカン みかん', async () => {
+        const s = new Service({
+            mode: 'kunrei'
+        });
+
+        const actual = await s.romanize('みかん ミカン みかん');
+        const expect = 'Mikan Mikan Mikan'
+        assert.equal(actual, expect);
+    })
+
+    it('ちょうおん', async () => {
+        const s = new Service({
+            mode: 'kunrei'
+        });
+
+        const actual = await s.romanize('ちょうおん');
+        const expect = 'Tyôon'
         assert.equal(actual, expect);
     })
 })

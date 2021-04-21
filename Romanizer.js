@@ -164,22 +164,31 @@ module.exports = class Romanizer {
 
     chouonMap = {
         'a': {
-            'aa': 'ā'
+            'aa': {hepburn: 'ā', kunrei: 'â'}
         },
         'i': {
-            'ii': 'ī'
+            'ii': {hepburn: 'ī', kunrei: 'î'}
         },
         'u': {
-            'uu': 'ū',
-            'ou': 'ō',
+            'uu': {hepburn: 'ū', kunrei: 'û'},
+            'ou': {hepburn: 'ō', kunrei: 'ô'}
         },
         'e': {
-            'ee': 'ē',
+            'ee': {hepburn: 'ē', kunrei: 'ê'}
         },
         'o': {
-            'oo': 'ō',
+            'oo': {hepburn: 'ō', kunrei: 'ô'}
         },
     }
+
+    mappingMode = 'hepburn';
+
+    constructor(option) {
+        if (option && 'mode' in option && option.mode === 'kunrei') {
+            this.mappingMode = 'kunrei';
+        }
+    }
+
 
     romanize(_text) {
         const text = this.kanaToHira(_text);
@@ -227,7 +236,7 @@ module.exports = class Romanizer {
             return '';
         } else if (char in this.romanMap) {
             if (typeof this.romanMap[char] === 'object') {
-                romanChar = this.romanMap[char].hepburn;
+                romanChar = this.romanMap[char][this.mappingMode];
             } else {
                 romanChar = this.romanMap[char]
             }
@@ -258,7 +267,7 @@ module.exports = class Romanizer {
             const twoChar = romanText.substr(i - 1, 2);
 
             if (char in this.chouonMap && twoChar in this.chouonMap[char]) {
-                result = result.substr(0, result.length - 1) + this.chouonMap[char][twoChar];
+                result = result.substr(0, result.length - 1) + this.chouonMap[char][twoChar][this.mappingMode];
             } else {
                 result += char;
             }
