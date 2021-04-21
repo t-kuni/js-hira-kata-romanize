@@ -10,6 +10,14 @@ describe('Romanizer（オプション無し：ヘボン式）', () => {
         assert.equal(actual, expect);
     })
 
+    it('ちょうきゅうめいのちょうすけ', async () => {
+        const s = new Service();
+
+        const actual = await s.romanize('ちょうきゅうめいのちょうすけ');
+        const expect = 'Chōkyūmeinochōsuke'
+        assert.equal(actual, expect);
+    })
+
     it('じゃ', async () => {
         const s = new Service();
 
@@ -183,6 +191,16 @@ describe('Romanizer（モード：訓令式）', () => {
 
         const actual = await s.romanize('りゅうぞうじ じょうたろう');
         const expect = 'Ryûzôzi Zyôtarô'
+        assert.equal(actual, expect);
+    })
+
+    it('ちょうきゅうめいのちょうすけ', async () => {
+        const s = new Service({
+            mode: 'kunrei'
+        });
+
+        const actual = await s.romanize('ちょうきゅうめいのちょうすけ');
+        const expect = 'Tyôkyûmeinotyôsuke'
         assert.equal(actual, expect);
     })
 
@@ -376,3 +394,77 @@ describe('Romanizer（モード：訓令式）', () => {
         assert.equal(actual, expect);
     })
 })
+
+describe('Romanizer（各種長音）', () => {
+    it('macron', async () => {
+        const s = new Service({
+            chouon: 'macron'
+        });
+
+        const actual = await s.romanize('あぁいぃうぅえぇおぉおぅ');
+        const expect = 'Āīūēōō';
+        assert.equal(actual, expect);
+    })
+
+    it('circumflex', async () => {
+        const s = new Service({
+            chouon: 'circumflex'
+        });
+
+        const actual = await s.romanize('あぁいぃうぅえぇおぉおぅ');
+        const expect = 'Âîûêôô'
+        assert.equal(actual, expect);
+    })
+
+    it('alphabet', async () => {
+        const s = new Service({
+            chouon: 'alphabet'
+        });
+
+        const actual = await s.romanize('あぁいぃうぅえぇおぉおぅ');
+        const expect = 'Aaiiuueeooou';
+        assert.equal(actual, expect);
+    })
+
+    it('skip', async () => {
+        const s = new Service({
+            chouon: 'skip'
+        });
+
+        const actual = await s.romanize('あぁいぃうぅえぇおぉおぅ');
+        const expect = 'Aiueoo';
+        assert.equal(actual, expect);
+    })
+
+    it('hyphen', async () => {
+        const s = new Service({
+            chouon: 'hyphen'
+        });
+
+        const actual = await s.romanize('あぁいぃうぅえぇおぉおぅ');
+        const expect = 'A-i-u-e-o-o-';
+        assert.equal(actual, expect);
+    })
+});
+
+describe('Romanizer（オプションの組み合わせ）', () => {
+    it('ヘボン式でcircumflex', async () => {
+        const s = new Service({
+            mode: 'hepburn',
+            chouon: 'circumflex',
+        });
+        const actual = await s.romanize('ちょうきゅうめいのちょうすけ');
+        const expect = 'Chôkyûmeinochôsuke'
+        assert.equal(actual, expect);
+    })
+
+    it('訓令式でマクロン', async () => {
+        const s = new Service({
+            mode: 'kunrei',
+            chouon: 'macron',
+        });
+        const actual = await s.romanize('ちょうきゅうめいのちょうすけ');
+        const expect = 'Tyōkyūmeinotyōsuke'
+        assert.equal(actual, expect);
+    })
+});

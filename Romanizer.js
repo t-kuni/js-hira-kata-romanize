@@ -73,6 +73,12 @@ module.exports = class Romanizer {
         'ぷ' : 'pu',
         'ぺ' : 'pe',
         'ぽ' : 'po',
+        'あぁ' : 'aa',
+        'いぃ' : 'ii',
+        'うぅ' : 'uu',
+        'えぇ' : 'ee',
+        'おぉ' : 'oo',
+        'おぅ' : 'ou',
         'きゃ' : 'kya',
         'きぃ' : 'kyi',
         'きゅ' : 'kyu',
@@ -164,28 +170,34 @@ module.exports = class Romanizer {
 
     chouonMap = {
         'a': {
-            'aa': {hepburn: 'ā', kunrei: 'â'}
+            'aa': {macron: 'ā', circumflex: 'â'}
         },
         'i': {
-            'ii': {hepburn: 'ī', kunrei: 'î'}
+            'ii': {macron: 'ī', circumflex: 'î'}
         },
         'u': {
-            'uu': {hepburn: 'ū', kunrei: 'û'},
-            'ou': {hepburn: 'ō', kunrei: 'ô'}
+            'uu': {macron: 'ū', circumflex: 'û'},
+            'ou': {macron: 'ō', circumflex: 'ô'}
         },
         'e': {
-            'ee': {hepburn: 'ē', kunrei: 'ê'}
+            'ee': {macron: 'ē', circumflex: 'ê'}
         },
         'o': {
-            'oo': {hepburn: 'ō', kunrei: 'ô'}
+            'oo': {macron: 'ō', circumflex: 'ô'}
         },
     }
 
     mappingMode = 'hepburn';
+    chouonMode = 'macron';
 
     constructor(option) {
         if (option && 'mode' in option && option.mode === 'kunrei') {
             this.mappingMode = 'kunrei';
+            this.chouonMode = 'circumflex';
+        }
+
+        if (option && 'chouon' in option) {
+            this.chouonMode = option.chouon;
         }
     }
 
@@ -200,7 +212,7 @@ module.exports = class Romanizer {
             romanText += romanChar + (this.isNeedApostrophe(text, i) ? '\'' : '');
             i += char.length;
         }
-        return this.convertNN(this.upper(this.convertChouin(romanText)));
+        return this.convertNN(this.upper(this.convertChouon(romanText)));
     }
 
     /**
@@ -260,16 +272,29 @@ module.exports = class Romanizer {
         return this.sutegana.includes(char);
     }
 
-    convertChouin(romanText) {
+    convertChouon(romanText) {
+        if (this.chouonMode === 'alphabet') {
+            return romanText;
+        }
+
         let result = romanText[0];
+        let prevCharIsChouon = false;
         for (let i = 1; i < romanText.length; i++) {
             const char = romanText[i];
             const twoChar = romanText.substr(i - 1, 2);
 
-            if (char in this.chouonMap && twoChar in this.chouonMap[char]) {
-                result = result.substr(0, result.length - 1) + this.chouonMap[char][twoChar][this.mappingMode];
+            if (!prevCharIsChouon && char in this.chouonMap && twoChar in this.chouonMap[char]) {
+                prevCharIsChouon = true;
+                if (this.chouonMode === 'skip') continue;
+
+                if (this.chouonMode === 'hyphen') {
+                    result += '-';
+                } else {
+                    result = result.substr(0, result.length - 1) + this.chouonMap[char][twoChar][this.chouonMode];
+                }
             } else {
                 result += char;
+                prevCharIsChouon = false;
             }
         }
         return result;
