@@ -1,4 +1,22 @@
 module.exports = class Romanizer {
+    static MAPPING_HEPBURN = 'hepburn';
+    static MAPPING_KUNREI = 'kunrei';
+
+    static CHOUON_MACRON = 'macron';
+    static CHOUON_CIRCUMFLEX = 'circumflex';
+    static CHOUON_ALPHABET = 'alphabet';
+    static CHOUON_SKIP = 'skip';
+    static CHOUON_HYPHEN = 'hyphen';
+
+    static OPTION_SET_HEPBURN = {
+        mapping: Romanizer.MAPPING_HEPBURN,
+        chouon: Romanizer.CHOUON_MACRON,
+    }
+    static OPTION_SET_KUNREI = {
+        mapping: Romanizer.MAPPING_KUNREI,
+        chouon: Romanizer.CHOUON_CIRCUMFLEX,
+    }
+
     romanMap = {
         'あ' : 'a',
         'い' : 'i',
@@ -187,13 +205,12 @@ module.exports = class Romanizer {
         },
     }
 
-    mappingMode = 'hepburn';
-    chouonMode = 'macron';
+    mappingMode = Romanizer.MAPPING_HEPBURN;
+    chouonMode = Romanizer.CHOUON_MACRON;
 
     constructor(option) {
-        if (option && 'mode' in option && option.mode === 'kunrei') {
-            this.mappingMode = 'kunrei';
-            this.chouonMode = 'circumflex';
+        if (option && 'mapping' in option) {
+            this.mappingMode = option.mapping;
         }
 
         if (option && 'chouon' in option) {

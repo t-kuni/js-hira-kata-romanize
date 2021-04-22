@@ -171,11 +171,9 @@ describe('Romanizer（オプション無し：ヘボン式）', () => {
     })
 })
 
-describe('Romanizer（モード：ヘボン式）', () => {
+describe('Romanizer（オプションセット：ヘボン式）', () => {
     it('りゅうぞうじ じょうたろう', async () => {
-        const s = new Service({
-            mode: 'hepburn'
-        });
+        const s = new Service(Service.OPTION_SET_HEPBURN);
 
         const actual = await s.romanize('りゅうぞうじ じょうたろう');
         const expect = 'Ryūzōji Jōtarō'
@@ -183,11 +181,9 @@ describe('Romanizer（モード：ヘボン式）', () => {
     })
 });
 
-describe('Romanizer（モード：訓令式）', () => {
+describe('Romanizer（オプションセット：訓令式）', () => {
     it('りゅうぞうじ じょうたろう', async () => {
-        const s = new Service({
-            mode: 'kunrei'
-        });
+        const s = new Service(Service.OPTION_SET_KUNREI);
 
         const actual = await s.romanize('りゅうぞうじ じょうたろう');
         const expect = 'Ryûzôzi Zyôtarô'
@@ -195,9 +191,7 @@ describe('Romanizer（モード：訓令式）', () => {
     })
 
     it('ちょうきゅうめいのちょうすけ', async () => {
-        const s = new Service({
-            mode: 'kunrei'
-        });
+        const s = new Service(Service.OPTION_SET_KUNREI);
 
         const actual = await s.romanize('ちょうきゅうめいのちょうすけ');
         const expect = 'Tyôkyûmeinotyôsuke'
@@ -205,9 +199,7 @@ describe('Romanizer（モード：訓令式）', () => {
     })
 
     it('じゃ', async () => {
-        const s = new Service({
-            mode: 'kunrei'
-        });
+        const s = new Service(Service.OPTION_SET_KUNREI);
 
         const actual = await s.romanize('じゃ');
         const expect = 'Zya'
@@ -215,9 +207,7 @@ describe('Romanizer（モード：訓令式）', () => {
     })
 
     it('おおしろ', async () => {
-        const s = new Service({
-            mode: 'kunrei'
-        });
+        const s = new Service(Service.OPTION_SET_KUNREI);
 
         const actual = await s.romanize('おおしろ');
         const expect = 'Ôsiro'
@@ -225,9 +215,7 @@ describe('Romanizer（モード：訓令式）', () => {
     })
 
     it('せーらーむーん', async () => {
-        const s = new Service({
-            mode: 'kunrei'
-        });
+        const s = new Service(Service.OPTION_SET_KUNREI);
 
         const actual = await s.romanize('せーらーむーん');
         const expect = 'Sêrâmûn'
@@ -235,9 +223,7 @@ describe('Romanizer（モード：訓令式）', () => {
     })
 
     it('セーラームーン', async () => {
-        const s = new Service({
-            mode: 'kunrei'
-        });
+        const s = new Service(Service.OPTION_SET_KUNREI);
 
         const actual = await s.romanize('セーラームーン');
         const expect = 'Sêrâmûn'
@@ -245,9 +231,7 @@ describe('Romanizer（モード：訓令式）', () => {
     })
 
     it('じゃっきーちぇん', async () => {
-        const s = new Service({
-            mode: 'kunrei'
-        });
+        const s = new Service(Service.OPTION_SET_KUNREI);
 
         const actual = await s.romanize('じゃっきーちぇん');
         const expect = 'Zyakkîtyen'
@@ -255,9 +239,7 @@ describe('Romanizer（モード：訓令式）', () => {
     })
 
     it('ぴょーっん', async () => {
-        const s = new Service({
-            mode: 'kunrei'
-        });
+        const s = new Service(Service.OPTION_SET_KUNREI);
 
         const actual = await s.romanize('ぴょーっん');
         const expect = 'Pyôn'
@@ -265,9 +247,7 @@ describe('Romanizer（モード：訓令式）', () => {
     })
 
     it('ぴょーん', async () => {
-        const s = new Service({
-            mode: 'kunrei'
-        });
+        const s = new Service(Service.OPTION_SET_KUNREI);
 
         const actual = await s.romanize('ぴょーん');
         const expect = 'Pyôn'
@@ -275,9 +255,7 @@ describe('Romanizer（モード：訓令式）', () => {
     })
 
     it('めっ', async () => {
-        const s = new Service({
-            mode: 'kunrei'
-        });
+        const s = new Service(Service.OPTION_SET_KUNREI);
 
         const actual = await s.romanize('めっ');
         const expect = 'Me\''
@@ -285,9 +263,7 @@ describe('Romanizer（モード：訓令式）', () => {
     })
 
     it('っつ・・・', async () => {
-        const s = new Service({
-            mode: 'kunrei'
-        });
+        const s = new Service(Service.OPTION_SET_KUNREI);
 
         const actual = await s.romanize('っつ・・・');
         const expect = 'Ttu・・・'
@@ -295,9 +271,7 @@ describe('Romanizer（モード：訓令式）', () => {
     })
 
     it('ばっっっっっかじゃないの！？', async () => {
-        const s = new Service({
-            mode: 'kunrei'
-        });
+        const s = new Service(Service.OPTION_SET_KUNREI);
 
         const actual = await s.romanize('ばっっっっっかじゃないの！？');
         const expect = 'Bakkazyanaino！？'
@@ -305,9 +279,7 @@ describe('Romanizer（モード：訓令式）', () => {
     })
 
     it('とうきょう', async () => {
-        const s = new Service({
-            mode: 'kunrei'
-        });
+        const s = new Service(Service.OPTION_SET_KUNREI);
 
         const actual = await s.romanize('とうきょう');
         const expect = 'Tôkyô'
@@ -315,9 +287,7 @@ describe('Romanizer（モード：訓令式）', () => {
     })
 
     it('きょうすけ', async () => {
-        const s = new Service({
-            mode: 'kunrei'
-        });
+        const s = new Service(Service.OPTION_SET_KUNREI);
 
         const actual = await s.romanize('きょうすけ');
         const expect = 'Kyôsuke'
@@ -325,9 +295,7 @@ describe('Romanizer（モード：訓令式）', () => {
     })
 
     it('しんあい', async () => {
-        const s = new Service({
-            mode: 'kunrei'
-        });
+        const s = new Service(Service.OPTION_SET_KUNREI);
 
         const actual = await s.romanize('しんあい');
         const expect = 'Sin\'ai'
@@ -335,9 +303,7 @@ describe('Romanizer（モード：訓令式）', () => {
     })
 
     it('しない', async () => {
-        const s = new Service({
-            mode: 'kunrei'
-        });
+        const s = new Service(Service.OPTION_SET_KUNREI);
 
         const actual = await s.romanize('しない');
         const expect = 'Sinai'
@@ -345,9 +311,7 @@ describe('Romanizer（モード：訓令式）', () => {
     })
 
     it('しんよう', async () => {
-        const s = new Service({
-            mode: 'kunrei'
-        });
+        const s = new Service(Service.OPTION_SET_KUNREI);
 
         const actual = await s.romanize('しんよう');
         const expect = 'Sin\'yô'
@@ -355,9 +319,7 @@ describe('Romanizer（モード：訓令式）', () => {
     })
 
     it('しにょう', async () => {
-        const s = new Service({
-            mode: 'kunrei'
-        });
+        const s = new Service(Service.OPTION_SET_KUNREI);
 
         const actual = await s.romanize('しにょう');
         const expect = 'Sinyô'
@@ -365,9 +327,7 @@ describe('Romanizer（モード：訓令式）', () => {
     })
 
     it('しんや', async () => {
-        const s = new Service({
-            mode: 'kunrei'
-        });
+        const s = new Service(Service.OPTION_SET_KUNREI);
 
         const actual = await s.romanize('しんや');
         const expect = 'Sin\'ya'
@@ -375,9 +335,7 @@ describe('Romanizer（モード：訓令式）', () => {
     })
 
     it('みかん ミカン みかん', async () => {
-        const s = new Service({
-            mode: 'kunrei'
-        });
+        const s = new Service(Service.OPTION_SET_KUNREI);
 
         const actual = await s.romanize('みかん ミカン みかん');
         const expect = 'Mikan Mikan Mikan'
@@ -385,9 +343,7 @@ describe('Romanizer（モード：訓令式）', () => {
     })
 
     it('ちょうおん', async () => {
-        const s = new Service({
-            mode: 'kunrei'
-        });
+        const s = new Service(Service.OPTION_SET_KUNREI);
 
         const actual = await s.romanize('ちょうおん');
         const expect = 'Tyôon'
@@ -398,7 +354,7 @@ describe('Romanizer（モード：訓令式）', () => {
 describe('Romanizer（各種長音）', () => {
     it('macron', async () => {
         const s = new Service({
-            chouon: 'macron'
+            chouon: Service.CHOUON_MACRON,
         });
 
         const actual = await s.romanize('あぁいぃうぅえぇおぉおぅ');
@@ -408,7 +364,7 @@ describe('Romanizer（各種長音）', () => {
 
     it('circumflex', async () => {
         const s = new Service({
-            chouon: 'circumflex'
+            chouon: Service.CHOUON_CIRCUMFLEX,
         });
 
         const actual = await s.romanize('あぁいぃうぅえぇおぉおぅ');
@@ -418,7 +374,7 @@ describe('Romanizer（各種長音）', () => {
 
     it('alphabet', async () => {
         const s = new Service({
-            chouon: 'alphabet'
+            chouon: Service.CHOUON_ALPHABET,
         });
 
         const actual = await s.romanize('あぁいぃうぅえぇおぉおぅ');
@@ -428,7 +384,7 @@ describe('Romanizer（各種長音）', () => {
 
     it('skip', async () => {
         const s = new Service({
-            chouon: 'skip'
+            chouon: Service.CHOUON_SKIP,
         });
 
         const actual = await s.romanize('あぁいぃうぅえぇおぉおぅ');
@@ -438,7 +394,7 @@ describe('Romanizer（各種長音）', () => {
 
     it('hyphen', async () => {
         const s = new Service({
-            chouon: 'hyphen'
+            chouon: Service.CHOUON_HYPHEN,
         });
 
         const actual = await s.romanize('あぁいぃうぅえぇおぉおぅ');
@@ -450,8 +406,8 @@ describe('Romanizer（各種長音）', () => {
 describe('Romanizer（オプションの組み合わせ）', () => {
     it('ヘボン式でcircumflex', async () => {
         const s = new Service({
-            mode: 'hepburn',
-            chouon: 'circumflex',
+            mapping: Service.MAPPING_HEPBURN,
+            chouon: Service.CHOUON_CIRCUMFLEX,
         });
         const actual = await s.romanize('ちょうきゅうめいのちょうすけ');
         const expect = 'Chôkyûmeinochôsuke'
@@ -460,8 +416,8 @@ describe('Romanizer（オプションの組み合わせ）', () => {
 
     it('訓令式でマクロン', async () => {
         const s = new Service({
-            mode: 'kunrei',
-            chouon: 'macron',
+            mapping: Service.MAPPING_KUNREI,
+            chouon: Service.CHOUON_MACRON,
         });
         const actual = await s.romanize('ちょうきゅうめいのちょうすけ');
         const expect = 'Tyōkyūmeinotyōsuke'
