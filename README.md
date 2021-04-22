@@ -23,7 +23,7 @@ console.log(roman);
 // 出力： Chōkyūmeinochōsuke
 ```
 
-訓令式にする場合はコンストラクタにオプションを渡します。
+訓令式を使用する場合はコンストラクタにオプションを渡します。
 
 ```javascript
 const r = new Romanizer(Romanizer.OPTION_SET_KUNREI);
