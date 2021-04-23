@@ -58,11 +58,11 @@ describe('Romanizer（オプション無し：ヘボン式）', () => {
         assert.equal(actual, expect);
     })
 
-    it('ぴょーっん', async () => {
+    it('ぴんなっぷ', async () => {
         const s = new Service();
 
-        const actual = await s.romanize('ぴょーっん');
-        const expect = 'Pyōn'
+        const actual = await s.romanize('ぴんなっぷ');
+        const expect = 'Pinnappu'
         assert.equal(actual, expect);
     })
 
@@ -169,6 +169,14 @@ describe('Romanizer（オプション無し：ヘボン式）', () => {
         const expect = 'Chōon'
         assert.equal(actual, expect);
     })
+
+    it('おんな', async () => {
+        const s = new Service();
+
+        const actual = await s.romanize('おんな');
+        const expect = 'Onna'
+        assert.equal(actual, expect);
+    })
 })
 
 describe('Romanizer（オプションセット：ヘボン式）', () => {
@@ -235,14 +243,6 @@ describe('Romanizer（オプションセット：訓令式）', () => {
 
         const actual = await s.romanize('じゃっきーちぇん');
         const expect = 'Zyakkîtyen'
-        assert.equal(actual, expect);
-    })
-
-    it('ぴょーっん', async () => {
-        const s = new Service(Service.OPTION_SET_KUNREI);
-
-        const actual = await s.romanize('ぴょーっん');
-        const expect = 'Pyôn'
         assert.equal(actual, expect);
     })
 

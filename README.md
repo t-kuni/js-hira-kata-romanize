@@ -79,6 +79,27 @@ console.log(roman);
 | CHOUON_SKIP | 長音を無視します。例）Tokyo |
 | CHOUON_HYPHEN |  ハイフンを用います。例）To-kyo-|
 
+## upper
+
+大文字化の方式を指定できます。
+
+```javascript
+const r = new Romanizer({
+    upper: Romanizer.UPPER_WORD_INITIAL,
+});
+const roman = await r.romanize('ちょうきゅうめいのちょうすけ');
+
+console.log(roman);
+// 出力： Tyôkyûmeinotyôsuke
+```
+
+| 値 | 説明 |
+| --- | --- |
+| UPPER_WORD_INITIAL(デフォルト) |  |
+| UPPER_SENTENCE_INITIAL |  |
+| UPPER_ALL |  |
+| UPPER_NONE |  |
+
 ## オプションセットについて
 
 `Romanizer.OPTION_SET_HEPBURN`と`Romanizer.OPTION_SET_KUNREI`は上記のオプションを組み合わせたデフォルトのセットです。
