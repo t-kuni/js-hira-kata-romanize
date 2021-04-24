@@ -1,7 +1,7 @@
 {
   "name": "js-hira-kata-romanize",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.0.1",
+  "description": "ひらがなとカタカナをローマ字に変換するJavaScript向けのライブラリです。",
   "main": "Romanizer.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,5 +11,9 @@
   "dependencies": {
     "chai": "^4.3.4",
     "mocha": "^8.3.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/t-kuni/vue-scroll-detector.git"
   }
 }

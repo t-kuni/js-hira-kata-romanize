@@ -5,7 +5,7 @@
 # インストール
 
 ```
-(TODO)
+npm i js-hira-kata-romanize
 ```
 
 # 使い方
@@ -113,4 +113,12 @@ static OPTION_SET_KUNREI = {
     mapping: Romanizer.MAPPING_KUNREI,
     chouon: Romanizer.CHOUON_CIRCUMFLEX,
 }
+```
+
+## Development
+
+Release 
+
+``` 
+npm publish
 ```
