@@ -96,12 +96,6 @@ module.exports = class Romanizer {
         'ぷ': 'pu',
         'ぺ': 'pe',
         'ぽ': 'po',
-        'あぁ': 'aa',
-        'いぃ': 'ii',
-        'うぅ': 'uu',
-        'えぇ': 'ee',
-        'おぉ': 'oo',
-        'おぅ': 'ou',
         'きゃ': 'kya',
         'きぃ': 'kyi',
         'きゅ': 'kyu',
@@ -130,7 +124,6 @@ module.exports = class Romanizer {
         'てぇ': 'the',
         'てょ': 'tho',
         'ひゃ': 'hya',
-        'ひぃ': 'hyi',
         'ひゅ': 'hyu',
         'ひぇ': 'hye',
         'ひょ': 'hyo',
@@ -139,7 +132,6 @@ module.exports = class Romanizer {
         'ふぇ': 'fe',
         'ふぉ': 'fo',
         'みゃ': 'mya',
-        'みぃ': 'myi',
         'みゅ': 'myu',
         'みぇ': 'mye',
         'みょ': 'myo',
@@ -148,64 +140,42 @@ module.exports = class Romanizer {
         'ヴぇ': 've',
         'ヴぉ': 'vo',
         'ぎゃ': 'gya',
-        'ぎぃ': 'gyi',
         'ぎゅ': 'gyu',
         'ぎぇ': 'gye',
         'ぎょ': 'gyo',
         'じゃ': {hepburn: 'ja', kunrei: 'zya'},
-        'じぃ': 'zyi',
         'じゅ': {hepburn: 'ju', kunrei: 'zyu'},
         'じぇ': 'zye',
         'じょ': {hepburn: 'jo', kunrei: 'zyo'},
         'ぢゃ': {hepburn: 'dya', kunrei: 'zya'},
-        'ぢぃ': 'dyi',
         'ぢゅ': {hepburn: 'dyu', kunrei: 'zya'},
         'ぢぇ': 'dye',
         'ぢょ': {hepburn: 'dyo', kunrei: 'zya'},
         'びゃ': 'bya',
-        'びぃ': 'byi',
         'びゅ': 'byu',
         'びぇ': 'bye',
         'びょ': 'byo',
         'ぴゃ': 'pya',
-        'ぴぃ': 'pyi',
         'ぴゅ': 'pyu',
         'ぴぇ': 'pye',
         'ぴょ': 'pyo',
         'りゃ': 'rya',
-        'りぃ': 'ryi',
         'りゅ': 'ryu',
         'りぇ': 'rye',
         'りょ': 'ryo',
         'にゃ': 'nya',
-        'にぃ': 'nyi',
         'にゅ': 'nyu',
         'にぇ': 'nye',
         'にょ': 'nyo',
-        "いぇ": 'ie',
-        "うぃ": 'ui',
-        "うぇ": 'ue',
-        "うぉ": 'uo',
-        "ゔぁ": 'bua',
-        "ゔぃ": 'bui',
         "ゔ": 'bu',
-        "ゔぇ": 'bue',
-        "ゔぉ": 'buo',
-        "ぐぁ": 'gua',
-        "ぐぃ": 'gui',
-        "ぐぇ": 'gue',
-        "ぐぉ": 'guo',
-        "つぁ": 'tsua',
-        "つぃ": 'tsui',
-        "つぇ": 'tsue',
-        "つぉ": 'tsuo',
-        "でぃ": 'dei',
-        "でゅ": 'deyu',
-        "どぅ": 'dou',
-        "ふょ": 'fuyo',
         '、': ', ',
         '，': ', ',
-        '。': '. '
+        '。': '. ',
+        'ぁ': 'a',
+        'ぃ': 'i',
+        'ぅ': 'u',
+        'ぇ': 'e',
+        'ぉ': 'o',
     };
 
     sutegana = ['ぁ', 'ぃ', 'ぅ', 'ぇ', 'ぉ', 'ゃ', 'ゅ', 'ょ'];
@@ -265,7 +235,11 @@ module.exports = class Romanizer {
 
     /**
      * 日本語の文字を取得する
-     * 次の文字が捨て仮名の場合は捨て仮名も含めて取得される
+     * 以下の条件に合致する場合は捨て仮名も含めた２文字を取得します。
+     * ・次の文字が捨て仮名である
+     * ・捨て仮名を含めた２文字がromanMapに存在する
+     *
+     * romanMapに存在しない場合は１文字づつ処理するためにこのような挙動になっています。
      *
      * @param text
      * @param i
@@ -273,7 +247,8 @@ module.exports = class Romanizer {
      */
     getChar(text, i) {
         if (this.isWithSutegana(text, i)) {
-            return text.substr(i, 2);
+            const charWithSutegana = text.substr(i, 2);
+            return charWithSutegana in this.romanMap ? charWithSutegana : text[i];
         } else {
             return text[i];
         }
@@ -310,6 +285,13 @@ module.exports = class Romanizer {
         return romanChar;
     }
 
+    /**
+     * 次の文字が捨て仮名の場合、真を返します
+     *
+     * @param text
+     * @param i
+     * @returns {boolean}
+     */
     isWithSutegana(text, i) {
         const nextIdx = i + 1;
         if (nextIdx >= text.length) {
@@ -379,7 +361,7 @@ module.exports = class Romanizer {
         for (let i = 0; i < romanText.length; i++) {
             const char = romanText[i];
 
-            if (char.match(/[a-zA-Z]/) && inSentence === false) {
+            if (char.match(/[a-zA-Zāâīîūûēêōô]/) && inSentence === false) {
                 result += char.toUpperCase();
                 inSentence = true;
             } else {

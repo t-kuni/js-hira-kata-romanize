@@ -177,6 +177,14 @@ describe('Romanizer（オプション無し：ヘボン式）', () => {
         const expect = 'Onna'
         assert.equal(actual, expect);
     })
+
+    it('うっせぇわ', async () => {
+        const s = new Service();
+
+        const actual = await s.romanize('うっせぇわ');
+        const expect = 'Ussēwa'
+        assert.equal(actual, expect);
+    })
 })
 
 describe('Romanizer（オプションセット：ヘボン式）', () => {
@@ -467,6 +475,85 @@ describe('Romanizer（大文字化）', () => {
         });
         const actual = await s.romanize('みかん りんご、バナナ とまと。パイン');
         const expect = 'mikan ringo, banana tomato. pain'
+        assert.equal(actual, expect);
+    })
+});
+
+describe('Romanizer（ケース別バグ潰し）', () => {
+    it('いいね', async () => {
+        const s = new Service({
+            mapping: Service.MAPPING_HEPBURN,
+            chouon: Service.CHOUON_MACRON,
+            upper: Service.UPPER_SENTENCE_INITIAL,
+        });
+        const actual = await s.romanize('いいね');
+        const expect = 'Īne'
+        assert.equal(actual, expect);
+    })
+
+    it('いやぁ', async () => {
+        const s = new Service({
+            mapping: Service.MAPPING_HEPBURN,
+            chouon: Service.CHOUON_MACRON,
+            upper: Service.UPPER_SENTENCE_INITIAL,
+        });
+        const actual = await s.romanize('いやぁ');
+        const expect = 'Iyā'
+        assert.equal(actual, expect);
+    })
+
+    it('いやぁぁ', async () => {
+        const s = new Service({
+            mapping: Service.MAPPING_HEPBURN,
+            chouon: Service.CHOUON_MACRON,
+            upper: Service.UPPER_SENTENCE_INITIAL,
+        });
+        const actual = await s.romanize('いやぁぁ');
+        const expect = 'Iyāa'
+        assert.equal(actual, expect);
+    })
+
+    it('いやぁぁぁ', async () => {
+        const s = new Service({
+            mapping: Service.MAPPING_HEPBURN,
+            chouon: Service.CHOUON_MACRON,
+            upper: Service.UPPER_SENTENCE_INITIAL,
+        });
+        const actual = await s.romanize('いやぁぁぁ');
+        const expect = 'Iyāā'
+        assert.equal(actual, expect);
+    })
+
+    it('いやぁぁぁあぁ', async () => {
+        const s = new Service({
+            mapping: Service.MAPPING_HEPBURN,
+            chouon: Service.CHOUON_MACRON,
+            upper: Service.UPPER_SENTENCE_INITIAL,
+        });
+        const actual = await s.romanize('いやぁぁぁあぁ');
+        const expect = 'Iyāāā'
+        assert.equal(actual, expect);
+    })
+
+    it('いやぁぁぁあぁ（長音表記：ローマ字）', async () => {
+        const s = new Service({
+            mapping: Service.MAPPING_HEPBURN,
+            chouon: Service.CHOUON_ALPHABET,
+            upper: Service.UPPER_SENTENCE_INITIAL,
+        });
+        const actual = await s.romanize('いやぁぁぁあぁ');
+        const expect = 'Iyaaaaaa'
+        assert.equal(actual, expect);
+    })
+
+    it('なぁに', async () => {
+        const s = new Service({
+            mapping: Service.MAPPING_HEPBURN,
+            chouon: Service.CHOUON_ALPHABET,
+            upper: Service.UPPER_SENTENCE_INITIAL,
+        });
+        const actual = await s.romanize('なぁに');
+        const expect = 'Naani'
         assert.equal(actual, expect);
     })
 });
