@@ -1,6 +1,6 @@
 {
   "name": "js-hira-kata-romanize",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "ひらがなとカタカナをローマ字に変換するJavaScript向けのライブラリです。",
   "main": "Romanizer.js",
   "scripts": {
