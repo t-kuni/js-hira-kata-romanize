@@ -17,7 +17,7 @@ npm i js-hira-kata-romanize
 const Romanizer = require('js-hira-kata-romanize');
 
 const r = new Romanizer();
-const roman = await r.romanize('ちょうきゅうめいのちょうすけ');
+const roman = r.romanize('ちょうきゅうめいのちょうすけ');
 
 console.log(roman);
 // 出力： Chōkyūmeinochōsuke
@@ -27,7 +27,7 @@ console.log(roman);
 
 ```javascript
 const r = new Romanizer(Romanizer.OPTION_SET_KUNREI);
-const roman = await r.romanize('ちょうきゅうめいのちょうすけ');
+const roman = r.romanize('ちょうきゅうめいのちょうすけ');
 
 console.log(roman);
 // 出力： Tyôkyûmeinotyôsuke
@@ -44,7 +44,7 @@ console.log(roman);
 const r = new Romanizer({
     mapping: Romanizer.MAPPING_KUNREI
 });
-const roman = await r.romanize('ちょうきゅうめいのちょうすけ');
+const roman = r.romanize('ちょうきゅうめいのちょうすけ');
 
 console.log(roman);
 // 出力： Tyôkyûmeinotyôsuke
@@ -65,7 +65,7 @@ console.log(roman);
 const r = new Romanizer({
     chouon: Romanizer.CHOUON_CIRCUMFLEX
 });
-const roman = await r.romanize('ちょうきゅうめいのちょうすけ');
+const roman = r.romanize('ちょうきゅうめいのちょうすけ');
 
 console.log(roman);
 // 出力： Tyôkyûmeinotyôsuke
@@ -87,7 +87,7 @@ console.log(roman);
 const r = new Romanizer({
     upper: Romanizer.UPPER_WORD_INITIAL,
 });
-const roman = await r.romanize('ちょうきゅうめいのちょうすけ');
+const roman = r.romanize('ちょうきゅうめいのちょうすけ');
 
 console.log(roman);
 // 出力： Tyôkyûmeinotyôsuke
@@ -95,10 +95,10 @@ console.log(roman);
 
 | 値 | 説明 |
 | --- | --- |
-| UPPER_WORD_INITIAL(デフォルト) |  |
-| UPPER_SENTENCE_INITIAL |  |
-| UPPER_ALL |  |
-| UPPER_NONE |  |
+| UPPER_WORD_INITIAL(デフォルト) | 単語の先頭の文字を大文字にします。例）Mikan Ringo, Banana Tomato. Pain |
+| UPPER_SENTENCE_INITIAL | 文の先頭の文字を大文字にします。例）Mikan ringo, banana tomato. Pain |
+| UPPER_ALL | 全ての文字を大文字にします。例）MIKAN RINGO, BANANA TOMATO. PAIN |
+| UPPER_NONE | 何もしません。 |
 
 ## オプションセットについて
 

@@ -8,6 +8,11 @@ module.exports = class Romanizer {
     static CHOUON_SKIP = 'skip';
     static CHOUON_HYPHEN = 'hyphen';
 
+    static UPPER_WORD_INITIAL = 'word_initial';
+    static UPPER_SENTENCE_INITIAL = 'sentence_initial';
+    static UPPER_ALL = 'all';
+    static UPPER_NONE = 'none';
+
     static OPTION_SET_HEPBURN = {
         mapping: Romanizer.MAPPING_HEPBURN,
         chouon: Romanizer.CHOUON_MACRON,
@@ -200,7 +205,7 @@ module.exports = class Romanizer {
         "ふょ": 'fuyo',
         '、': ', ',
         '，': ', ',
-        '。': '.'
+        '。': '. '
     };
 
     sutegana = ['ぁ', 'ぃ', 'ぅ', 'ぇ', 'ぉ', 'ゃ', 'ゅ', 'ょ'];
@@ -228,6 +233,7 @@ module.exports = class Romanizer {
 
     mappingMode = Romanizer.MAPPING_HEPBURN;
     chouonMode = Romanizer.CHOUON_MACRON;
+    upperMode = Romanizer.UPPER_WORD_INITIAL;
 
     constructor(option) {
         if (option && 'mapping' in option) {
@@ -236,6 +242,10 @@ module.exports = class Romanizer {
 
         if (option && 'chouon' in option) {
             this.chouonMode = option.chouon;
+        }
+
+        if (option && 'upper' in option) {
+            this.upperMode = option.upper;
         }
     }
 
@@ -339,6 +349,16 @@ module.exports = class Romanizer {
     }
 
     upper(romanText) {
+        switch (this.upperMode) {
+            case Romanizer.UPPER_WORD_INITIAL: return this.upperWordInitial(romanText);
+            case Romanizer.UPPER_SENTENCE_INITIAL: return this.upperSentenceInitial(romanText);
+            case Romanizer.UPPER_ALL: return this.upperAll(romanText);
+            case Romanizer.UPPER_NONE: return romanText;
+            default: throw new Error('upperに不正な値が指定されています')
+        }
+    }
+
+    upperWordInitial(romanText) {
         let result = romanText[0].toUpperCase();
         for (let i = 1; i < romanText.length; i++) {
             const char = romanText[i];
@@ -349,6 +369,34 @@ module.exports = class Romanizer {
             } else {
                 result += char;
             }
+        }
+        return result;
+    }
+
+    upperSentenceInitial(romanText) {
+        let result = '';
+        let inSentence = false;
+        for (let i = 0; i < romanText.length; i++) {
+            const char = romanText[i];
+
+            if (char.match(/[a-zA-Z]/) && inSentence === false) {
+                result += char.toUpperCase();
+                inSentence = true;
+            } else {
+                if (char === '.') {
+                    inSentence = false;
+                }
+                result += char;
+            }
+        }
+        return result;
+    }
+
+    upperAll(romanText) {
+        let result = '';
+        for (let i = 0; i < romanText.length; i++) {
+            const char = romanText[i];
+            result += char.toUpperCase();
         }
         return result;
     }
